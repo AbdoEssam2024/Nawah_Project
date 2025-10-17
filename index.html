@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Happits App</title>
+</head>
+
+<body>
+    <!-- header section -->
+    <header id="header" class="container-fluid bg-primary mb-3">
+        <div class="row d-flex justify-content-between align-items-center p-2 p-md-2">
+            <div class="col-3 col-md-4 col-lg-2">
+                <img class="img-fluid" src="assets/images/logo.png" alt=""
+                    style="width: 100px; height: 100px; object-fit: cover;">
+            </div>
+            <div id="header-links"
+                class="col-6 col-md-3 col-lg-2 d-flex text-center justify-content-evenly align-items-center">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#addHappitModal">Add Happit</a>
+                <a href="statistics/statistics.html">Statistics</a>
+            </div>
+
+            <!-- Add Happit Modal -->
+            <div class="modal fade" id="addHappitModal">
+                <div class="modal-dialog modal-lg modal-dialog-centered w-90 w-md-25 w-sm-50">
+                    <div class="modal-content border border-primary border-2">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Add Happit</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addHappitForm" class="text-start">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                    <div class="invalid-feedback">Name is required</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="description">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="happitDay" class="form-label">Happit Day</label>
+                                    <select name="happitDay" id="happitDay" class="form-control" required>
+                                        <option value="" selected>Select Day</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                        <option value="Saturday">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please Select Day</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="happitTime" class="form-label">Happit Time</label>
+                                    <input type="time" class="form-control" id="happitTime" required>
+                                    <div class="invalid-feedback">Please Enter Time</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="happitMode" class="form-label">Happit Mode</label>
+                                    <select name="happitMode" id="happitMode" class="form-control" required>
+                                        <option value="" selected>Select Mode</option>
+                                        <option value="normal">Normal</option>
+                                        <option value="desolate">Desolate</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please Select Mode</div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="addHappit()">Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- main section -->
+    <main id="main">
+        <!-- Actions section -->
+        <section class="container-fluid">
+            
+            <div class="row p-1">
+                <div class="col-6 col-md-3 mb-3 mb-md-0" onclick="filterCategory('all')">
+                    <div id="counter"
+                        class="all-counter d-flex justify-content-between align-items-center text-dark p-4 rounded-3">
+                        All
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span id="happits-count" class="badge text-dark">0</span>
+                            <img src="../assets/icons/data.svg" alt="" class="w-100 scale-1.5" id="filter-all"
+                                onclick="filterCategory('all')">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 mb-3 mb-md-0">
+                    <div id="counter"
+                        class="done-counter d-flex justify-content-between align-items-center text-dark p-4 rounded-3">
+                        Done
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span id="happits-done-count" class="badge text-dark">0</span>
+                            <img src="../assets/icons/filter-fill.svg" alt="" id="filter-done"
+                                onclick="filterCategory('done')">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-md-0 col-md-3">
+                    <div id="counter"
+                        class="pending-counter d-flex justify-content-between align-items-center text-dark p-4 rounded-3">
+                        Pending
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span id="happits-pending-count" class="badge text-dark">0</span>
+                            <img src="../assets/icons/filter-fill.svg" alt="" id="filter-pending"
+                                onclick="filterCategory('pending')">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-md-0 col-md-3">
+                    <div id="counter"
+                        class="passed-counter d-flex justify-content-between align-items-center text-dark p-4 rounded-3 counter">
+                        Passed
+                        <span id="passed-count" class="badge text-dark">0</span>
+                        <img src="../assets/icons/filter-fill.svg" alt="" id="filter-passed"
+                                onclick="filterCategory('passed')">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-3 d-flex justify-content-start align-items-center gap-2 flex-wrap">
+
+                <div id="thisMonth" class="col-12 col-md-3 bg-info rounded-3 p-2 text-white"></div>
+                
+                <div class="col-4 col-md-2 col-lg-1 d-flex align-items-center gap-2 bg-warning rounded-3 px-2" onclick="prevWeek()">
+                    <a class="btn text-white">Prev</a>
+                    <img class="img-fluid" src="../assets/icons/prev.svg" alt="prev week" >
+                </div>
+
+                <a class="col-3 col-md-2 col-lg-1 btn btn-primary text-white" onclick="returnThisWeek()">This Week</a>
+
+                <div class="col-4 col-md-2 col-lg-1 d-flex align-items-center gap-2 bg-success rounded-3 px-2" onclick="nextWeek()">
+                    <a class="btn text-white">Next</a>
+                    <img src="../assets/icons/next.svg" alt="next week" >
+                </div>
+
+            </div>
+
+            <!-- happits days buttons -->
+            <div id="happits-days-buttons"
+                class="btn-group d-flex flex-wrap justify-content-evenly align-items-center my-3" role="group">
+                <button id="view-all-btn" type="button" class="btn btn-primary"
+                    onclick="renderHappits(itemsList)">All</button>
+                <button id="Monday" type="button" class="btn btn-outline-primary"
+                    onclick="filterHappitsByDay('Monday')">Monday</button>
+                <button id="Tuesday" type="button" class="btn btn-outline-primary"
+                    onclick="filterHappitsByDay('Tuesday')">Tuesday</button>
+                <button id="Wednesday" type="button" class="btn btn-outline-primary"
+                    onclick="filterHappitsByDay('Wednesday')">Wednesday</button>
+                <button id="Thursday" type="button" class="btn btn-outline-primary"
+                    onclick="filterHappitsByDay('Thursday')">Thursday</button>
+                <button id="Friday" type="button" class="btn btn-outline-primary"
+                    onclick="filterHappitsByDay('Friday')">Friday</button>
+                <button id="Saturday" type="button" class="btn btn-outline-primary"
+                    onclick="filterHappitsByDay('Saturday')">Saturday</button>
+                <button id="Sunday" type="button" class="btn btn-outline-primary"
+                    onclick="filterHappitsByDay('Sunday')">Sunday</button>
+            </div>
+        </section>
+
+        <!-- View section -->
+        <section id="happits-section">
+            <!-- happits items -->
+            <div id="section-header">
+                <h2>Happits</h2>
+            </div>
+
+            <div class="container-fluid">
+                <div id="happits-items" class="row text-center">
+                    <!-- Render Happits By JavaScript -->
+                </div>
+            </div>
+
+            <!-- Delete Happit Modal -->
+            <div class="modal fade" id="deleteHappitModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Delete Happit</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete <span id="happit-name"></span>?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="confirm-delete" type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Happit Modal -->
+            <div class="modal fade" id="editHappitModal">
+                <div class="modal-dialog modal-lg modal-dialog-centered w-90 w-md-25 w-sm-50">
+                    <div class="modal-content border border-primary border-2">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Edit Happit</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editHappitForm" class="text-start">
+                                <div class="mb-3">
+                                    <label for="edit-name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="edit-name" required>
+                                    <div class="invalid-feedback">Name is required</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="edit-description" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="edit-description">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="edit-happitDay" class="form-label">Happit Day</label>
+                                    <select name="edit-happitDay" id="edit-happitDay" class="form-control" required>
+                                        <option value="" selected>Select Day</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                        <option value="Saturday">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please Select Day</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="edit-happitDate" class="form-label">Happit Date</label>
+                                    <input type="date" class="form-control" id="edit-happitDate" required>
+                                    <div class="invalid-feedback">Please Select Date</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="edit-happitTime" class="form-label">Happit Time</label>
+                                    <input type="time" class="form-control" id="edit-happitTime" required>
+                                    <div class="invalid-feedback">Please Enter Time</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="edit-happitMode" class="form-label">Happit Mode</label>
+                                    <select name="edit-happitMode" id="edit-happitMode" class="form-control" required>
+                                        <option value="" selected>Select Mode</option>
+                                        <option value="normal">Normal</option>
+                                        <option value="desolate">Desolate</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please Select Mode</div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button id="confirm-edit" type="button" class="btn btn-primary">Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Notes Modal -->
+            <div class="modal fade" id="notesModal">
+                <div class="modal-dialog modal-lg modal-dialog-centered w-90 w-md-25 w-sm-50">
+                    <div class="modal-content border border-primary border-2">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Notes</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="note-title"></p>
+                            <form id="notesForm" class="text-start">
+                                <div class="mb-3">
+                                    <label for="note" class="form-label">Note</label>
+                                    <input type="text" class="form-control" id="note" required>
+                                    <div class="invalid-feedback">Note is required</div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button id="confirm-complete" type="button" class="btn btn-primary">Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- alerts Section -->
+            <div class="alert alert-danger d-none mt-0 mt-md-3" id="error-message"
+                style="position: absolute; right: 1%; top: 2%; width: 50%;">
+            </div>
+            <div class="alert alert-success d-none mt-0 mt-md-3" id="success-message"
+                style="position: absolute; right: 1%; top: 2%; width: 50%;">
+            </div>
+            <div class="alert alert-warning d-none mt-0 mt-md-3" id="warning-message"
+                style="position: absolute; right: 1%; top: 2%; width: 50%;">
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <!-- footer section -->
+    <footer id="footer" class="container-fluid bg-primary mt-3">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-3 col-md-4 col-lg-2">
+                <img class="img-fluid" src="assets/images/logo.png" alt=""
+                    style="width: 100px; height: 100px; object-fit: cover;">
+            </div>
+
+            <div id="header-links"
+                class="col-6 col-md-4 col-lg-2 d-flex text-center justify-content-evenly align-items-center">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#addHappitModal">Add Happit</a>
+                <a href="statistics/statistics.html">Statistics</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
