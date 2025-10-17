@@ -134,6 +134,7 @@ function toggleHappitCompletion(id) {
       showToast("error-message", "Not Allowed Time Out , (Desolate Mode) !!");
       return;
     }
+
     if (thisWeek > extractWeek(selectedHappit.happitDate)) {
       checkbox.checked = false;
       showToast(
