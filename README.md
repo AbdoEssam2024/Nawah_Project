@@ -99,7 +99,15 @@
 
 https://github.com/user-attachments/assets/58661c80-e502-4242-b551-9d4a113a9a07
 
+## 💡 Future Enhancements
 
+⏰ إضافة تذكيرات يومية بالعادات.
+
+📅 دعم الفترات الشهرية (Monthly Goals).
+
+☁️ مزامنة البيانات مع السيرفر بدلاً من LocalStorage.
+
+👤 دعم تعدد المستخدمين.
 ## 👨‍💻 Developer
 
 - Developed by: Abdo Essam
@@ -107,3 +115,4 @@ https://github.com/user-attachments/assets/58661c80-e502-4242-b551-9d4a113a9a07
 - 🔗 GitHub: https://github.com/AbdoEssam2024
 
 © 2025 Habits App. All rights reserved.
+
