@@ -10,7 +10,7 @@
 - <h3>Home Page</h3>
 <img width="1899" height="956" alt="Happits App — Firefox Developer Edition 18_10_2025 12_55_28 AM" src="https://github.com/user-attachments/assets/e3b4bef6-c71b-4390-82b9-b0416b4208b5" />
 
-- <h3>Statitics Page</h3>
+- <h3>Statistics Page</h3>
 <img width="1920" height="955" alt="Happits App — Firefox Developer Edition 18_10_2025 12_57_02 AM" src="https://github.com/user-attachments/assets/e5aed475-33af-43bb-951d-71e62129ec16" />
 
 ---
