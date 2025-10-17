@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="statistics.css">
+    <title>Statistics</title>
+</head>
+
+<body>
+    <!-- header section -->
+    <header id="header" class="container-fluid bg-primary mb-3">
+        <div class="row d-flex justify-content-between align-items-center p-2 p-md-2">
+            <div class="col-3 col-md-4 col-lg-2">
+                <img class="img-fluid" src="../assets/images/logo.png" alt=""
+                    style="width: 100px; height: 100px; object-fit: cover;">
+            </div>
+            <div id="header-links"
+                class="col-6 col-md-3 col-lg-2 d-flex text-center justify-content-evenly align-items-center">
+
+                <a href="../index.html">Home</a>
+            </div>
+
+            <!-- Add Happit Modal -->
+            <div class="modal fade" id="addHappitModal">
+                <div class="modal-dialog modal-lg modal-dialog-centered w-90 w-md-25 w-sm-50">
+                    <div class="modal-content border border-primary border-2">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Add Happit</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addHappitForm" class="text-start">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                    <div class="invalid-feedback">Name is required</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="description">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="happitDay" class="form-label">Happit Day</label>
+                                    <select name="happitDay" id="happitDay" class="form-control" required>
+                                        <option value="" selected>Select Day</option>
+                                        <option value="Monday">Monday</option>
+                                        <option value="Tuesday">Tuesday</option>
+                                        <option value="Wednesday">Wednesday</option>
+                                        <option value="Thursday">Thursday</option>
+                                        <option value="Friday">Friday</option>
+                                        <option value="Saturday">Saturday</option>
+                                        <option value="Sunday">Sunday</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please Select Day</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="happitDate" class="form-label">Happit Date</label>
+                                    <input type="date" class="form-control" id="happitDate" required>
+                                    <div class="invalid-feedback">Please Select Date</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="happitTime" class="form-label">Happit Time</label>
+                                    <input type="time" class="form-control" id="happitTime" required>
+                                    <div class="invalid-feedback">Please Enter Time</div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="addHappit()">Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="section-header">
+        <h2>Statistics</h2>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row p-1">
+            <div class="col-6 col-md-3 mb-3 mb-md-0" onclick="filterCategory('all')">
+                <div id="counter"
+                    class="all-counter d-flex justify-content-between align-items-center text-dark p-4 rounded-3">
+                    All
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span id="happits-count" class="badge text-dark">1</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                <div id="counter"
+                    class="done-counter d-flex justify-content-between align-items-center text-dark p-4 rounded-3">
+                    Done
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span id="happits-done-count" class="badge text-dark">1</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-md-0 col-md-3">
+                <div id="counter"
+                    class="pending-counter d-flex justify-content-between align-items-center text-dark p-4 rounded-3">
+                    Pending
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span id="happits-pending-count" class="badge text-dark">1</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mb-md-0 col-md-3">
+                <div id="counter"
+                    class="score-counter d-flex justify-content-between align-items-center text-dark p-4 rounded-3 counter">
+                    Score
+                    <span id="score-count" class="badge text-dark">1</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- Statistics section -->
+    <section id="statistics">
+
+
+        <div class="container-fluid mt-4">
+            <div class="row">
+                <!-- Statistics Chart -->
+                <div class="col-12 col-md-9" data-aos="fade-up" data-aos-delay="400">
+                    <div id="statistics-chart" class="card">
+                        <div class="card-header bg-transparent border-bottom-0 pb-0">
+                            <div class="d-flex justify-content-start align-items-center gap-2">
+                                <h6 class="card-title mb-0">Happits Timeline</h6>
+                                <img src="../assets/icons/chart-line.svg" alt="">
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="chart-container" style="position: relative; height:350px;">
+                                <canvas id="chartTimeline"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-12 col-md-3 mt-2 mt-md-0">
+                    <div id="statistics-chart" class="card h-100">
+                        <div class="card-header bg-transparent border-bottom-0 pb-0">
+                            <div class="d-flex justify-content-start align-items-center gap-2">
+                                <h6 class="card-title mb-0">Filters</h6>
+                                <img src="../assets/icons/filter.svg" alt="">
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="mb-3">
+                                <label for="Week" class="form-label">Week</label>
+                                <select name="Week" id="filterWeek" class="form-control" onchange="filterChart()"
+                                    required>
+                                    <option value="0" selected>This Week</option>
+                                    <option value="1">Week 1</option>
+                                    <option value="2">Week 2</option>
+                                    <option value="3">Week 3</option>
+                                    <option value="4">Week 4</option>
+                                </select>
+                                <div class="invalid-feedback">Please Select Month Then Week</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- footer section -->
+    <footer id="footer" class="container-fluid bg-primary mt-3">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-3 col-md-4 col-lg-2">
+                <img class="img-fluid" src="../assets/images/logo.png" alt=""
+                    style="width: 100px; height: 100px; object-fit: cover;">
+            </div>
+
+            <div id="header-links"
+                class="col-6 col-md-4 col-lg-2 d-flex text-center justify-content-evenly align-items-center">
+                <a href="../index.html">Home</a>
+            </div>
+
+        </div>
+    </footer>
+
+
+
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="statistics.js"></script>
+</body>
+
+</html>
