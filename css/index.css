@@ -64,18 +64,22 @@ a:hover {
     margin: 1%;
 }
 
+/* All Counter */
 .all-counter {
     box-shadow: -8px 8px 5px rgba(10, 67, 224, 0.534);
 }
 
+/* Done Counter */
 .done-counter {
     box-shadow: -8px 8px 5px rgba(26, 204, 64, 0.534);
 }
 
+/* Pending Counter */
 .pending-counter {
     box-shadow: -8px 8px 5px rgba(255, 153, 0, 0.534);
 }
 
+/* Passed Counter */
 .passed-counter {
     box-shadow: -8px 8px 5px rgba(255, 0, 0, 0.534);
 }
